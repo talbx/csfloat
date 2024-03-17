@@ -47,15 +47,22 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
 	}
 	config.Top = top
 
-	fmt.Println("+++++++++ STA CONFIG +++++++++")
+	gun, err := flagset.GetString("gun")
+	if err != nil {
+		return nil, err
+	}
+	config.Gun = gun
+
+	fmt.Println("+++++++++ CSFLOAT SEARCH CONFIG +++++++++")
 	fmt.Printf("--- Max Price: %v ---\n", money.New(int64(config.MaxPrice), money.USD).Display())
 	fmt.Printf("--- Min Price: %v ---\n", money.New(int64(config.MinPrice), money.USD).Display())
 	fmt.Printf("--- Min Discount: %v ---\n", config.MinDiscountPercentage)
 	fmt.Printf("--- Min Discount Val: %v ---\n", money.New(int64(config.MinDiscountValue), money.USD).Display())
 	fmt.Printf("--- Stickers: %v ---\n", config.Stickers)
 	fmt.Printf("--- Category: %v ---\n", config.Category)
+	fmt.Printf("--- Gun: %v ---\n", config.Gun)
 	fmt.Printf("--- Top: %v ---\n", config.Top)
-	fmt.Printf("+++++++++ END CONFIG +++++++++\n\n")
+	fmt.Printf("+++++++++ CSFLOAT SEARCH CONFIG +++++++++\n\n")
 
 	return &config, nil
 }

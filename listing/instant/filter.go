@@ -23,9 +23,7 @@ func (a *BuyNowFilter) Filter(ofs []types.BuyNowItem, config types.FilterConfig)
 			}
 
 			all = append(all, types.FilteredItem{
-				Price: o.Price,
-				Item:  o.Item,
-				Ref:   o.Ref,
+				Item: o.Item,
 			})
 		}
 	}

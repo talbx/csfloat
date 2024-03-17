@@ -36,9 +36,7 @@ func (a *AuctionFilter) Filter(ofs []types.AuctionItem, config types.FilterConfi
 			if sub.Minutes() <= 500 {
 				//log.Default().Println("Auction for", o.Name, o.Wear, "expires in", math.Floor(sub.Minutes()), "minutes")
 				all = append(all, types.FilteredItem{
-					Price:        o.Price,
 					Item:         o.Item,
-					Ref:          o.Ref,
 					TerminatesIn: fmt.Sprintf("%v Minutes", math.Floor(sub.Minutes())),
 				})
 			}

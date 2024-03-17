@@ -34,6 +34,7 @@ func ProcessValidOffers(o []types.FilteredItem, config types.FilterConfig) []typ
 				DiscountPerc: bigFloatPriceShortened,
 				MarketPrice:  predicted.Display(),
 				TerminatesIn: item.TerminatesIn,
+				Link:         fmt.Sprintf("https://csfloat.com/item/%v", item.Id),
 			}
 			result = append(result, r)
 		}
