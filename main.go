@@ -14,12 +14,13 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.Flags().IntP("max", "m", 1000, "Max price")
+	rootCmd.Flags().IntP("max", "m", 0, "Max price")
 	rootCmd.Flags().Float64P("discount", "d", 5.00, "Min Discount")
 	rootCmd.Flags().IntP("discountValue", "v", 10, "Min Discount Value (cents)")
 	rootCmd.Flags().IntP("category", "c", 1, "Item category - default normal (1)")
 	rootCmd.Flags().BoolP("stickers", "s", false, "Show stickers?")
-	rootCmd.Flags().IntP("top", "t", 5, "Top List")
+	rootCmd.Flags().IntP("top", "t", 10, "Top List")
+	rootCmd.Flags().StringP("gun", "g", "", "Gun")
 }
 
 func Execute() {

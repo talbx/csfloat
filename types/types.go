@@ -1,6 +1,6 @@
 package types
 
-type Item struct {
+type ItemDetails struct {
 	Name     string  `json:"item_name"`
 	FloatVal float64 `json:"float_value"`
 	Wear     string  `json:"wear_name"`
@@ -12,6 +12,7 @@ type SearchConfig struct {
 	MinPrice         int
 	MinDiscountValue int
 	Category         int //1 normal
+	Gun              string
 }
 
 type FilterConfig struct {
@@ -50,21 +51,22 @@ type ItemFilter[B BuyNowItem | AuctionItem] interface {
 }
 
 type FilteredItem struct {
-	Price        int64 `json:"price"`
-	Item         `json:"item"`
-	Ref          `json:"reference"`
+	Item
 	TerminatesIn string
 }
 type BuyNowItem struct {
-	Price int64 `json:"price"`
-	Item  `json:"item"`
-	Ref   `json:"reference"`
+	Item
+}
+
+type Item struct {
+	Price       int64  `json:"price"`
+	Id          string `json:"id"`
+	ItemDetails `json:"item"`
+	Ref         `json:"reference"`
 }
 
 type AuctionItem struct {
-	Price          int64 `json:"price"`
-	Item           `json:"item"`
-	Ref            `json:"reference"`
+	Item
 	AuctionDetails `json:"auction_details"`
 }
 
@@ -110,4 +112,6 @@ type OutputItem struct {
 	DiscountPerc string
 	MarketPrice  string
 	TerminatesIn string
+	Link         string
+	Image        any
 }

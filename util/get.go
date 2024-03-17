@@ -14,14 +14,23 @@ import (
 func GetListings[R types.BuyNowItem | types.AuctionItem](filter types.SearchConfig, searchType string, returnStruct []R) ([]R, error) {
 	f := []string{
 		fmt.Sprintf("&category=%v", filter.Category),
-		fmt.Sprintf("&max_price=%v", filter.MaxPrice),
-		fmt.Sprintf("&min_price=%v", filter.MinPrice),
 		"&sort_by=highest_discount",
+	}
+
+	if filter.MaxPrice != 0 {
+		f = append(f, fmt.Sprintf("&max_price=%v", filter.MaxPrice))
+	}
+
+	if filter.MinPrice != 0 {
+		f = append(f, fmt.Sprintf("&min_price=%v", filter.MinPrice))
+	}
+
+	if filter.Gun != "" {
+		f = append(f, fmt.Sprintf("&market_hash_name=%v", filter.Gun))
 	}
 
 	filtered := strings.Join(f, "")
 	l := fmt.Sprintf("https://csfloat.com/api/v1/listings?type=%v", searchType) + filtered
-
 	request, err := http.NewRequest(http.MethodGet, l, nil)
 	if err != nil {
 		return nil, err
