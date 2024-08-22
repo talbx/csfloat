@@ -50,7 +50,6 @@ func GetListings[R types.BuyNowItem | types.AuctionItem](filter types.SearchConf
 	if err != nil {
 		return nil, err
 	}
-
 	resBody, err := io.ReadAll(do.Body)
 	if err != nil {
 		return nil, err

@@ -74,23 +74,6 @@ type Writer interface {
 	WriteOut(result []OutputItem)
 }
 
-/*
-*
-
-	"auction_details": {
-				"reserve_price": 100,
-				"top_bid": {
-					"id": "676713016192011508",
-					"created_at": "2024-02-11T08:55:55.780131Z",
-					"price": 5400,
-					"contract_id": "676412549721361235",
-					"state": "active",
-					"obfuscated_buyer_id": "8850653525911407964"
-				},
-				"expires_at": "2024-02-17T13:01:58.986724Z",
-				"min_next_bid": 5500
-			}
-*/
 type AuctionDetails struct {
 	ReservePrice int `json:"reserve_price"`
 	TopBid       `json:"top_bid"`
