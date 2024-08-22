@@ -18,6 +18,7 @@ func FindSkins(flags *types.InputConfig, counter int) {
 		Category:         flags.Category,
 		MinPrice:         flags.MinPrice,
 		Gun:              flags.Gun,
+		Keyfile:          flags.Keyfile,
 	}
 	filterConfig := types.NewFilterConfig(flags)
 
@@ -46,7 +47,7 @@ func findAuctions(searchConfig types.SearchConfig, filterConfig types.FilterConf
 
 	auctionLister := auction.Auction{}
 	auctionFilter := auction.AuctionFilter{}
-	auctionListings, err := auctionLister.GetListings()
+	auctionListings, err := auctionLister.GetListings(searchConfig)
 	if err != nil {
 		log.Default().Fatal(err)
 	}

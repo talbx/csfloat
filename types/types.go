@@ -13,6 +13,7 @@ type SearchConfig struct {
 	MinDiscountValue int
 	Category         int //1 normal
 	Gun              string
+	Keyfile          string
 }
 
 type FilterConfig struct {

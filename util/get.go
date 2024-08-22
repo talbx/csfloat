@@ -36,7 +36,7 @@ func GetListings[R types.BuyNowItem | types.AuctionItem](filter types.SearchConf
 		return nil, err
 	}
 
-	file, err := os.ReadFile("key")
+	file, err := os.ReadFile(filter.Keyfile)
 	if err != nil {
 		return nil, err
 	}

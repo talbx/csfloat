@@ -8,8 +8,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "float",
-	Short: "csfloat checker",
-	Long:  `A csfloat checker`,
+	Short: "CSFloat price check",
+	Long:  `A CSFloat price checker`,
 	Run:   run,
 }
 
@@ -21,6 +21,7 @@ func init() {
 	rootCmd.Flags().BoolP("stickers", "s", false, "Show stickers?")
 	rootCmd.Flags().IntP("top", "t", 10, "Top List")
 	rootCmd.Flags().StringP("gun", "g", "", "Gun")
+	rootCmd.Flags().StringP("keyfile", "k", "", "The location of your API key file")
 }
 
 func Execute() {
