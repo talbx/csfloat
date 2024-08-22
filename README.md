@@ -1,23 +1,30 @@
-# csfloat
+# CSFloat CLI
 
-A cron-based csfloat deal finder.
+A cron-based CSFloat deal finder CLI.
 
 ## Usage
 Create a developer key in your [CSFloat profile](https://csfloat.com/profile) by navigating to the `Developers`
 tab. 
-Copy the generated API key into a file called `key` that lies in the same dir as this project
-
-
+Copy the generated API key into a file called `key` that lies in the same dir as this project.
+Then run 
 ```bash
 go build -o float
 ```
 
-Then run it via
-
+to build the binary. Then run it via
 
 ```bash
 ./float
 ```
+This expects the `key` file with the CSFloat API key in the same dir.
+Alternatively, you can store the API key in any file you want and reference it via
+
+```bash
+./float --keyfile path/to/the/keyfile
+```
+
+The CLI has some configuration options you might consider.
+
 
 ### Examples
 
@@ -41,7 +48,7 @@ Then run it via
 ./float --stickers
 ```
 
-Usage per CLI:
+All Options:
 ```
 Usage:
   float [flags]
