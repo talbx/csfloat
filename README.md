@@ -54,13 +54,13 @@ Usage:
   float [flags]
 
 Flags:
-  -c, --category int        Item category - default normal (1) (default 1)
-  -d, --discount float      Min Discount (default 5)
-  -v, --discountValue int   Min Discount Value (cents) (default 10)
-  -g, --gun string          Gun
+  -c, --category int        Item category - [0: Any, 1: Normal, 2: Stattrak, 3: Souvenir] (default 1)
+  -d, --discount float      Min discount percentage (default 5)
+  -v, --discountValue int   Min discount in cents (default 10)
   -h, --help                help for float
-  -m, --max int             Max price
-  -s, --stickers            Show stickers?
+  -k, --keyfile string      The location of your API key file
+  -m, --max int             Max price in cents
+  -s, --stickers            Show stickers? (Default off)
   -t, --top int             Top List (default 10)
 ```
 
