@@ -65,3 +65,4 @@ Flags:
 ```
 
 > `--max` is based on cents, e.g `--max 125` corresponds to max price = 1.25$ 
+> while `--discount` is a percentage, e.g `--discount 12` corresponds to 12%
