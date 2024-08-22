@@ -14,13 +14,12 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.Flags().IntP("max", "m", 0, "Max price")
-	rootCmd.Flags().Float64P("discount", "d", 5.00, "Min Discount")
-	rootCmd.Flags().IntP("discountValue", "v", 10, "Min Discount Value (cents)")
-	rootCmd.Flags().IntP("category", "c", 1, "Item category - default normal (1)")
-	rootCmd.Flags().BoolP("stickers", "s", false, "Show stickers?")
+	rootCmd.Flags().IntP("max", "m", 0, "Max price in cents")
+	rootCmd.Flags().Float64P("discount", "d", 5.00, "Min discount percentage")
+	rootCmd.Flags().IntP("discountValue", "v", 10, "Min discount in cents")
+	rootCmd.Flags().IntP("category", "c", 1, "Item category - [0: Any, 1: Normal, 2: Stattrak, 3: Souvenir]")
+	rootCmd.Flags().BoolP("stickers", "s", false, "Show stickers? (Default off)")
 	rootCmd.Flags().IntP("top", "t", 10, "Top List")
-	rootCmd.Flags().StringP("gun", "g", "", "Gun")
 	rootCmd.Flags().StringP("keyfile", "k", "", "The location of your API key file")
 }
 

@@ -67,12 +67,6 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
 	}
 	config.Top = top
 
-	gun, err := flagset.GetString("gun")
-	if err != nil {
-		return nil, err
-	}
-	config.Gun = gun
-
 	fmt.Println("+++++++++ CSFLOAT SEARCH CONFIG +++++++++")
 	fmt.Printf("--- Max Price: %v ---\n", money.New(int64(config.MaxPrice), money.USD).Display())
 	fmt.Printf("--- Min Price: %v ---\n", money.New(int64(config.MinPrice), money.USD).Display())
