@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/spf13/cobra"
 	"log"
-	"os"
 )
 
 var rootCmd = &cobra.Command{
@@ -25,7 +24,7 @@ func init() {
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		log.Default().Fatal(os.Stderr, err)
+		log.Default().Fatal(err)
 	}
 }
 
