@@ -22,12 +22,6 @@ func init() {
 	rootCmd.Flags().StringP("keyfile", "k", "", "The location of your API key file")
 }
 
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		log.Default().Fatal(err)
-	}
-}
-
 func main() {
 	err := rootCmd.Execute()
 	if err != nil {

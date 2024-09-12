@@ -22,7 +22,7 @@ func FindSkins(flags *types.InputConfig, counter int) {
 	}
 	filterConfig := types.NewFilterConfig(flags)
 
-	c := make(chan bool, 0)
+	c := make(chan bool)
 	go findAuctions(searchConfig, filterConfig)
 	go findInstantBuys(searchConfig, filterConfig)
 	<-c

@@ -13,11 +13,12 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
 
 	config := types.InputConfig{}
 	keyfile, _ := flagset.GetString("keyfile")
+	keyFileMsg := "A key file with your CSFloat API key is required.\nEither provide a file called \"key\" in the same dir from where you run float, or provide the path to your key file like \"--keyfile ../path/to/my/keyfile\""
 
 	if keyfile == "" {
 		_, err := os.ReadFile("key")
 		if err != nil {
-			return nil, errors.New(fmt.Sprint("A key file with your CSFloat API key is required.\nEither provide a file called \"key\" in the same dir from where you run float, or provide the path to your key file like \"--keyfile ../path/to/my/keyfile\""))
+			return nil, errors.New(keyFileMsg)
 		}
 		config.Keyfile = "key"
 
@@ -25,7 +26,7 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
 		_, err := os.ReadFile(keyfile)
 
 		if err != nil {
-			return nil, errors.New(fmt.Sprint("A key file with your CSFloat API key is required.\nEither provide a file called \"key\" in the same dir from where you run float, or provide the path to your key file like \"--keyfile ../path/to/my/keyfile\""))
+			return nil, errors.New(keyFileMsg)
 		}
 		config.Keyfile = keyfile
 	}

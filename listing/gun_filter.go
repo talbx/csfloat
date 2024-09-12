@@ -1,7 +1,6 @@
 package listing
 
 import (
-	"errors"
 	"fmt"
 	"github.com/talbx/csfloat/types"
 	"strings"
@@ -48,7 +47,7 @@ func (f *GunFilter) Filter(gun types.Gun) error {
 
 func (f *GunFilter) filterSticker(gun types.Gun) error {
 	if len(gun.Stickers) != 0 {
-		return errors.New(fmt.Sprintf("Gun %v contains stickers", gun.Name))
+		return fmt.Errorf("gun %v contains stickers", gun.Name)
 	}
 	return nil
 }
@@ -59,5 +58,5 @@ func (f *GunFilter) filterGunType(gun types.Gun) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Weapon %v not in weapon whitelist", gun.Name))
+	return fmt.Errorf("weapon %v not in weapon whitelist", gun.Name)
 }
