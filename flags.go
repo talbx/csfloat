@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/Rhymond/go-money"
@@ -9,9 +10,9 @@ import (
 	"os"
 )
 
-func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
+func ParseFlags(flagset *pflag.FlagSet) (*types.SearchConfig, error) {
 
-	config := types.InputConfig{}
+	config := types.SearchConfig{}
 	keyfile, _ := flagset.GetString("keyfile")
 	keyFileMsg := "A key file with your CSFloat API key is required.\nEither provide a file called \"key\" in the same dir from where you run float, or provide the path to your key file like \"--keyfile ../path/to/my/keyfile\""
 
@@ -36,7 +37,6 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
 		return nil, err
 	}
 	config.MaxPrice = maxi
-	config.MinPrice = maxi / 10
 
 	discount, err := flagset.GetFloat64("discount")
 	if err != nil {
@@ -44,17 +44,23 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
 	}
 	config.MinDiscountPercentage = discount
 
-	dv, err := flagset.GetInt("discountValue")
+	mini, err := flagset.GetInt("min")
 	if err != nil {
 		return nil, err
 	}
-	config.MinDiscountValue = dv
+	config.MinPrice = mini
 
 	cat, err := flagset.GetInt("category")
 	if err != nil {
 		return nil, err
 	}
 	config.Category = cat
+
+	keyword, err := flagset.GetString("keyword")
+	if err != nil {
+		return nil, err
+	}
+	config.Keyword = keyword
 
 	stickers, err := flagset.GetBool("stickers")
 	if err != nil {
@@ -68,16 +74,72 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.InputConfig, error) {
 	}
 	config.Top = top
 
-	fmt.Println("+++++++++ CSFLOAT SEARCH CONFIG +++++++++")
-	fmt.Printf("--- Max Price: %v ---\n", money.New(int64(config.MaxPrice), money.USD).Display())
-	fmt.Printf("--- Min Price: %v ---\n", money.New(int64(config.MinPrice), money.USD).Display())
-	fmt.Printf("--- Min Discount: %v ---\n", config.MinDiscountPercentage)
-	fmt.Printf("--- Min Discount Val: %v ---\n", money.New(int64(config.MinDiscountValue), money.USD).Display())
-	fmt.Printf("--- Stickers: %v ---\n", config.Stickers)
-	fmt.Printf("--- Category: %v ---\n", config.Category)
-	fmt.Printf("--- Gun: %v ---\n", config.Gun)
-	fmt.Printf("--- Top: %v ---\n", config.Top)
-	fmt.Printf("+++++++++ CSFLOAT SEARCH CONFIG +++++++++\n\n")
+	cron, err := flagset.GetBool("cron")
+	if err != nil {
+		return nil, err
+	}
+	config.Cron = cron
 
+	auctions, err := flagset.GetBool("auctions")
+	if err != nil {
+		return nil, err
+	}
+	config.Auctions = auctions
+
+	if config.MinPrice == 0 {
+		config.MinPrice = maxi / 10
+	}
+
+	fmt.Println(prettyPrint(config))
 	return &config, nil
+}
+
+func prettyPrint(cfg types.SearchConfig) string {
+	var cat string
+	if cfg.Category == 1 {
+		cat = "1 (Normal)"
+	} else {
+		cat = "2 (Normal)"
+	}
+
+	var auctions string
+	if cfg.Auctions {
+		auctions = "Yes"
+	} else {
+		auctions = "No"
+	}
+
+	var stickers string
+	if cfg.Stickers {
+		stickers = "Yes"
+	} else {
+		stickers = "No"
+	}
+
+	var cron string
+	if cfg.Cron {
+		cron = "Yes"
+	} else {
+		cron = "No"
+	}
+	var keyword string
+	if cfg.Keyword != "" {
+		keyword = cfg.Keyword
+	} else {
+		keyword = "n/a"
+	}
+	printCfg := types.PrintConfig{
+		MaxPrice:              money.New(int64(cfg.MaxPrice), money.USD).Display(),
+		MinPrice:              money.New(int64(cfg.MinPrice), money.USD).Display(),
+		Category:              cat,
+		Keyfile:               cfg.Keyfile,
+		MinDiscountPercentage: fmt.Sprintf("%v%v", cfg.MinDiscountPercentage, "%"),
+		Stickers:              stickers,
+		Top:                   cfg.Top,
+		Keyword:               keyword,
+		Cron:                  cron,
+		Auctions:              auctions,
+	}
+	s, _ := json.MarshalIndent(printCfg, "", "\t")
+	return string(s)
 }

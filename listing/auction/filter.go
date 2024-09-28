@@ -11,7 +11,7 @@ import (
 
 type AuctionFilter struct{}
 
-func (a *AuctionFilter) Filter(ofs []types.AuctionItem, config types.FilterConfig) []types.FilteredItem {
+func (a *AuctionFilter) Filter(ofs []types.AuctionItem, config types.SearchConfig) []types.FilteredItem {
 	all := make([]types.FilteredItem, 0)
 	gf := listing.NewGunFilter(&config)
 	for _, o := range ofs {

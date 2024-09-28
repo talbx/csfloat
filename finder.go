@@ -5,59 +5,46 @@ import (
 	auction "github.com/talbx/csfloat/listing/auction"
 	"github.com/talbx/csfloat/listing/instant"
 	"github.com/talbx/csfloat/types"
-	"github.com/talbx/csfloat/writer"
+	"github.com/talbx/csfloat/util"
 	"log"
 )
 
-type SkinFinder = func(f *types.InputConfig)
+type SkinFinder = func(f *types.SearchConfig)
 
-func FindSkins(flags *types.InputConfig, counter int) {
-	searchConfig := types.SearchConfig{
-		MaxPrice:         flags.MaxPrice,
-		MinDiscountValue: flags.MinDiscountValue,
-		Category:         flags.Category,
-		MinPrice:         flags.MinPrice,
-		Gun:              flags.Gun,
-		Keyfile:          flags.Keyfile,
+func FindSkins(searchConfig *types.SearchConfig) {
+	instants := findInstantBuys(*searchConfig)
+	buynowWriter := util.BuyNowWriter{}
+	buynowWriter.WriteOut(instants)
+
+	if searchConfig.Auctions {
+		auctions := findAuctions(*searchConfig)
+		auctionWriter := util.AuctionWriter{}
+		if len(auctions) > 0 {
+			auctionWriter.WriteOut(auctions)
+		} else {
+			log.Default().Println("No Auctions found matching the default criteria!")
+		}
 	}
-	filterConfig := types.NewFilterConfig(flags)
-
-	c := make(chan bool)
-	go findAuctions(searchConfig, filterConfig)
-	go findInstantBuys(searchConfig, filterConfig)
-	<-c
-
 }
 
-func findInstantBuys(searchConfig types.SearchConfig, filterConfig types.FilterConfig) {
+func findInstantBuys(config types.SearchConfig) []types.OutputItem {
 	instantLister := instant.Instant{}
 	buyNowFilter := instant.BuyNowFilter{}
-	instantListings, err := instantLister.GetListings(searchConfig)
+	instantListings, err := instantLister.GetListings(config)
 	if err != nil {
 		log.Default().Fatal(err)
 	}
-	filteredOffers := buyNowFilter.Filter(instantListings, filterConfig)
-	processedBuyNow := listing.ProcessValidOffers(filteredOffers, filterConfig)
-
-	buynowWriter := writer.BuyNowWriter{}
-	buynowWriter.WriteOut(processedBuyNow)
+	filteredOffers := buyNowFilter.Filter(instantListings, config)
+	return listing.ProcessValidOffers(filteredOffers, config)
 }
 
-func findAuctions(searchConfig types.SearchConfig, filterConfig types.FilterConfig) {
-
+func findAuctions(searchConfig types.SearchConfig) []types.OutputItem {
 	auctionLister := auction.Auction{}
 	auctionFilter := auction.AuctionFilter{}
 	auctionListings, err := auctionLister.GetListings(searchConfig)
 	if err != nil {
 		log.Default().Fatal(err)
 	}
-	filteredAuctions := auctionFilter.Filter(auctionListings, filterConfig)
-	processedAuctions := listing.ProcessValidOffers(filteredAuctions, filterConfig)
-
-	auctionWriter := writer.AuctionWriter{}
-	if len(processedAuctions) > 0 {
-		auctionWriter.WriteOut(processedAuctions)
-	} else {
-		log.Default().Println("No Auctions found matching the default criteria!")
-	}
+	filteredAuctions := auctionFilter.Filter(auctionListings, searchConfig)
+	return listing.ProcessValidOffers(filteredAuctions, searchConfig)
 }

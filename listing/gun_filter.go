@@ -6,32 +6,11 @@ import (
 	"strings"
 )
 
-var gunsOfInterest = []string{
-	"Glock-18",
-	"P250",
-	"P2000",
-	"USP-S",
-	"Five-SeveN",
-	"Desert Eagle",
-	"XM1014",
-	"MAG-7",
-	"MAC-10",
-	"P90",
-	"MP7",
-	"Galil",
-	"M4A1",
-	"M4A4",
-	"AK-47",
-	"SSG",
-	"AWP",
-	"Knife",
-}
-
 type GunFilter struct {
-	config *types.FilterConfig
+	config *types.SearchConfig
 }
 
-func NewGunFilter(conf *types.FilterConfig) *GunFilter {
+func NewGunFilter(conf *types.SearchConfig) *GunFilter {
 	return &GunFilter{conf}
 }
 
@@ -53,10 +32,11 @@ func (f *GunFilter) filterSticker(gun types.Gun) error {
 }
 
 func (f *GunFilter) filterGunType(gun types.Gun) error {
-	for _, weapon := range gunsOfInterest {
-		if strings.Contains(gun.Name, weapon) {
+	if f.config.Keyword != "" {
+		if strings.Contains(strings.ToLower(gun.Name), strings.ToLower(f.config.Keyword)) {
 			return nil
 		}
+		return fmt.Errorf("weapon %v not in weapon whitelist", gun.Name)
 	}
-	return fmt.Errorf("weapon %v not in weapon whitelist", gun.Name)
+	return nil
 }

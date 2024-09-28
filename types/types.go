@@ -8,31 +8,31 @@ type ItemDetails struct {
 }
 
 type SearchConfig struct {
-	MaxPrice         int
-	MinPrice         int
-	MinDiscountValue int
-	Category         int //1 normal
-	Gun              string
-	Keyfile          string
-}
-
-type FilterConfig struct {
+	MaxPrice              int
+	MinPrice              int
+	MinDiscountValue      int
+	Category              int //1 normal
+	Gun                   string
+	Keyfile               string
 	MinDiscountPercentage float64
 	Stickers              bool
 	Top                   int
+	Keyword               string
+	Cron                  bool
+	Auctions              bool
 }
 
-func NewFilterConfig(config *InputConfig) FilterConfig {
-	return FilterConfig{
-		MinDiscountPercentage: config.MinDiscountPercentage,
-		Stickers:              config.Stickers,
-		Top:                   config.Top,
-	}
-}
-
-type InputConfig struct {
-	SearchConfig
-	FilterConfig
+type PrintConfig struct {
+	MaxPrice              string
+	MinPrice              string
+	Category              string //1 normal
+	Keyfile               string
+	MinDiscountPercentage string
+	Stickers              string
+	Top                   int
+	Keyword               string
+	Cron                  string
+	Auctions              string
 }
 
 type Ref struct {
@@ -48,7 +48,7 @@ type Gun struct {
 }
 
 type ItemFilter[B BuyNowItem | AuctionItem] interface {
-	Filter(b []B, filterConfig FilterConfig) []FilteredItem
+	Filter(b []B, config SearchConfig) []FilteredItem
 }
 
 type FilteredItem struct {

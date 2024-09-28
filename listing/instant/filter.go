@@ -7,7 +7,7 @@ import (
 
 type BuyNowFilter struct{}
 
-func (a *BuyNowFilter) Filter(ofs []types.BuyNowItem, config types.FilterConfig) []types.FilteredItem {
+func (a *BuyNowFilter) Filter(ofs []types.BuyNowItem, config types.SearchConfig) []types.FilteredItem {
 	all := make([]types.FilteredItem, 0)
 	gf := listing.NewGunFilter(&config)
 	for _, o := range ofs {
@@ -18,7 +18,6 @@ func (a *BuyNowFilter) Filter(ofs []types.BuyNowItem, config types.FilterConfig)
 		}
 		if len(all) < config.Top {
 			if err := gf.Filter(gun); err != nil {
-				//fmt.Println("Filtering out weapon because: ", err.Error())
 				continue
 			}
 
