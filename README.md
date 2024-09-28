@@ -34,6 +34,11 @@ The CLI has some configuration options you might consider.
 ```
 
 ```bash
+# filter all offers in range 20$ - 25$
+./float -m 2500 -n 2000 
+```
+
+```bash
 # filter all offers by max price 25$ (TOP 5 only)
 ./float -m 2500 --top 5
 ```
@@ -48,21 +53,34 @@ The CLI has some configuration options you might consider.
 ./float --stickers
 ```
 
+```bash
+# also show auctions
+./float -a
+```
+
+```bash
+# filter all offers in range 50% - 95$ with stickers, include auctions and run in cron mode
+./float -m 9500 -n 5000 -a -s --cron
+```
+
 All Options:
 ```
 Usage:
   float [flags]
 
 Flags:
-  -c, --category int        Item category - [0: Any, 1: Normal, 2: Stattrak, 3: Souvenir] (default 1)
-  -d, --discount float      Min discount percentage (default 5)
-  -v, --discountValue int   Min discount in cents (default 10)
-  -h, --help                help for float
-  -k, --keyfile string      The location of your API key file
-  -m, --max int             Max price in cents
-  -s, --stickers            Show stickers? (Default off)
-  -t, --top int             Top List (default 10)
+  -a, --auctions         Also check auctions
+  -c, --category int     Item category - [0: Any, 1: Normal, 2: Stattrak, 3: Souvenir] (default 1)
+      --cron             Enable cron mode
+  -d, --discount float   Min discount percentage (default 5)
+  -h, --help             help for float
+  -f, --keyfile string   The location of your API key file
+  -k, --keyword string   The keyword. e.g a Skin Name like 'Asiimov' or 'Dragon Lore'
+  -m, --max int          Max price in cents
+  -n, --min int          Min price in cents
+  -s, --stickers         Show stickers? (Default off)
+  -t, --top int          Top List (default 10)
 ```
 
-> `--max` is based on cents, e.g `--max 125` corresponds to max price = 1.25$ 
+> `--max / --min` is based on cents, e.g `--max 125` corresponds to max price = 1.25$ 
 > while `--discount` is a percentage, e.g `--discount 12` corresponds to 12%
