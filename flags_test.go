@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/spf13/pflag"
 	"github.com/talbx/csfloat/types"
+	"os"
 	"reflect"
 	"testing"
 )
@@ -13,7 +14,7 @@ var def = types.SearchConfig{
 	MinDiscountValue:      0,
 	Category:              1,
 	Gun:                   "",
-	Keyfile:               "key",
+	Keyfile:               "key-temp",
 	MinDiscountPercentage: 10,
 	Stickers:              false,
 	Top:                   10,
@@ -23,6 +24,8 @@ var def = types.SearchConfig{
 }
 
 func TestParseFlags(t *testing.T) {
+	_, _ = os.Create("key-temp")
+	defer os.Remove("key-temp")
 	var maxPriceEnhanced = def
 	maxPriceEnhanced.MaxPrice = 2500
 
@@ -58,7 +61,7 @@ func createFlagSet(cfg *types.SearchConfig) *pflag.FlagSet {
 	set.Int("top", cfg.Top, "")
 	set.Float64("discount", cfg.MinDiscountPercentage, "")
 	set.String("keyword", cfg.Keyword, "")
-	set.String("keyfile", cfg.Keyword, "")
+	set.String("keyfile", cfg.Keyfile, "")
 	set.Bool("auctions", cfg.Auctions, "")
 	set.Bool("stickers", cfg.Stickers, "")
 	set.Bool("cron", cfg.Cron, "")
