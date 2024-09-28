@@ -41,7 +41,7 @@ func run(cmd *cobra.Command, _ []string) {
 	if flags.Cron {
 		c := make(chan string)
 		RunCronSchedule(flags, c)
-		_ = <-c
+		<-c
 	}
 	FindSkins(flags)
 }
