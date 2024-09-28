@@ -4,7 +4,7 @@ go 1.22.1
 
 require (
 	github.com/Rhymond/go-money v1.0.14
-	github.com/go-co-op/gocron/v2 v2.11.0
+	github.com/go-co-op/gocron/v2 v2.12.1
 	github.com/jedib0t/go-pretty/v6 v6.5.9
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
