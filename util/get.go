@@ -29,6 +29,10 @@ func GetListings[R types.BuyNowItem | types.AuctionItem](filter types.SearchConf
 		f = append(f, fmt.Sprintf("&market_hash_name=%v", filter.Gun))
 	}
 
+	if filter.DefIndex != nil {
+		f = append(f, fmt.Sprintf("&def_index=%v", strings.Join(filter.DefIndex, ",")))
+	}
+
 	filtered := strings.Join(f, "")
 	l := fmt.Sprintf("https://csfloat.com/api/v1/listings?type=%v", searchType) + filtered
 	request, err := http.NewRequest(http.MethodGet, l, nil)

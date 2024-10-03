@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/talbx/csfloat/types"
 	"os"
+	"strings"
 )
 
 func ParseFlags(flagset *pflag.FlagSet) (*types.SearchConfig, error) {
@@ -43,6 +44,12 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.SearchConfig, error) {
 		return nil, err
 	}
 	config.MinDiscountPercentage = discount
+
+	defIndex, err := flagset.GetStringSlice("defIndex")
+	if err != nil {
+		return nil, err
+	}
+	config.DefIndex = defIndex
 
 	mini, err := flagset.GetInt("min")
 	if err != nil {
@@ -138,6 +145,7 @@ func prettyPrint(cfg types.SearchConfig) string {
 		Top:                   cfg.Top,
 		Keyword:               keyword,
 		Cron:                  cron,
+		DefIndices:            strings.Join(cfg.DefIndex, ","),
 		Auctions:              auctions,
 	}
 	s, _ := json.MarshalIndent(printCfg, "", "\t")

@@ -11,7 +11,6 @@ import (
 var def = types.SearchConfig{
 	MaxPrice:              1000,
 	MinPrice:              100,
-	MinDiscountValue:      0,
 	Category:              1,
 	Gun:                   "",
 	Keyfile:               "key-temp",

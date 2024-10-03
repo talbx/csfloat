@@ -23,6 +23,7 @@ func init() {
 	rootCmd.Flags().IntP("top", "t", 10, "Top List")
 	rootCmd.Flags().StringP("keyfile", "f", "", "The location of your API key file")
 	rootCmd.Flags().StringP("keyword", "k", "", "The keyword. e.g a Skin Name like 'Asiimov' or 'Dragon Lore'")
+	rootCmd.Flags().StringSlice("defIndex", nil, "The keyword. e.g a Skin Name like 'Asiimov' or 'Dragon Lore'")
 }
 
 func main() {

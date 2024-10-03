@@ -10,11 +10,11 @@ func TestGet(t *testing.T) {
 
 	var auction []types.AuctionItem
 	listings, err := GetListings(types.SearchConfig{
-		MaxPrice:         500,
-		MinPrice:         200,
-		MinDiscountValue: 10,
-		Category:         1,
-		Keyfile:          "",
+		MaxPrice:              500,
+		MinPrice:              200,
+		MinDiscountPercentage: 10,
+		Category:              1,
+		Keyfile:               "",
 	}, "auction", auction)
 
 	assert.Nil(t, listings)

@@ -10,16 +10,17 @@ type ItemDetails struct {
 type SearchConfig struct {
 	MaxPrice              int
 	MinPrice              int
-	MinDiscountValue      int
+	MinDiscountPercentage float64
 	Category              int //1 normal
 	Gun                   string
 	Keyfile               string
-	MinDiscountPercentage float64
-	Stickers              bool
-	Top                   int
-	Keyword               string
-	Cron                  bool
-	Auctions              bool
+	// 500,503,505,506,507,508,509,512,514,515,516,517,518,519,520,521,522,523,525,526
+	DefIndex []string // nobody knows that this is
+	Stickers bool
+	Top      int
+	Keyword  string
+	Cron     bool
+	Auctions bool
 }
 
 type PrintConfig struct {
@@ -33,6 +34,7 @@ type PrintConfig struct {
 	Keyword               string
 	Cron                  string
 	Auctions              string
+	DefIndices            string
 }
 
 type Ref struct {
