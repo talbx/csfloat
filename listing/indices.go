@@ -1,89 +1,117 @@
 package listing
 
-var KNIFES = []int{
-	500, // Bayonet
-	503, // Classic Knife
-	505, // Flip Knife
-	506, // Gut Knife
-	507, // Karambit
-	508, // M9 Bayonet
-	509, // Huntsman
-	512, // Falchion
-	514, // Bowie
-	515, // Butterfly
-	516, // Shadow Daggers
-	517, // PARACORD
-	518, // Survival
-	519, // Ursus
-	520, // Navaja
-	521, // Nomad
-	522, // Stiletto
-	523, // Talon Knife
-	525, // Skeleton
-	526, // Kukri
+type Tuple struct {
+	Name  string
+	Index int
 }
 
-var PISTOLS = []int{
-	1,  // DEAGLE
-	2,  // DUELIES
-	3,  // Five-Seven
-	4,  // Glock
-	30, // TEC-9
-	32, // P2000
-	36, // P250
-	61, // USP
-	63, // CZ
-	64, // R8
+func of(name string, index int) Tuple {
+	return Tuple{name, index}
 }
 
-var RIFLES = []int{
-	7,  // AK-47
-	8,  // AUG
-	9,  // AWP
-	10, // FAMAS
-	11, // G3SG1
-	13, // GALIL
-	16, // M4A4
-	38, // SCAR-20
-	39, // SG-553
-	40, // Scout
-	60, // M4A1-S
+var KNIFES = []Tuple{
+	of("Bayonet", 500),
+	of("Classic Knife", 503),
+	of("Flip Knife", 505),
+	of("Gut Knife", 506),
+	of("Karambit", 507),
+	of("M9 Bayonet", 508),
+	of("Huntsman", 509),
+	of("Falchion", 512),
+	of("Bowie", 514),
+	of("Butterfly", 515),
+	of("Shadow Daggers", 516),
+	of("PARACORD", 517),
+	of("Survival", 518),
+	of("Ursus", 519),
+	of("Navaja", 520),
+	of("Nomad", 521),
+	of("Stiletto", 522),
+	of("Talon Knife", 523),
+	of("Skeleton", 525),
+	of("Kukri", 526),
 }
 
-var MGs = []int{
-	14, // M249
-	28, // NEGEV
+// PISTOLS
+var PISTOLS = []Tuple{
+	of("DEAGLE", 1),
+	of("DUELIES", 2),
+	of("Five-Seven", 3),
+	of("Glock", 4),
+	of("TEC-9", 30),
+	of("P2000", 32),
+	of("P250", 36),
+	of("USP", 61),
+	of("CZ", 63),
+	of("R8", 64),
 }
 
-var SMGs = []int{
-	17, // MAC-10
-	19, // P90
-	23, // MP5
-	24, // UMP
-	26, // BIZON
-	33, // MP7
-	34, // MP9
+// RIFLES
+var RIFLES = []Tuple{
+	of("AK-47", 7),
+	of("AUG", 8),
+	of("AWP", 9),
+	of("FAMAS", 10),
+	of("G3SG1", 11),
+	of("GALIL", 13),
+	of("M4A4", 16),
+	of("SCAR-20", 38),
+	of("SG-553", 39),
+	of("Scout", 40),
+	of("M4A1-S", 60),
 }
 
-var PUMPS = []int{
-	25, // XM
-	27, // MAG-7
-	29, // SAWED-OFF
-	35, // NOVA
-
+// MGs
+var MGs = []Tuple{
+	of("M249", 14),
+	of("NEGEV", 28),
 }
 
-var MISC = []int{
-	31, // Zeus
+// SMGs
+var SMGs = []Tuple{
+	of("MAC-10", 17),
+	of("P90", 19),
+	of("MP5", 23),
+	of("UMP", 24),
+	of("BIZON", 26),
+	of("MP7", 33),
+	of("MP9", 34),
 }
 
-var GLOVES = []int{
-	4725, // Broken Fang
-	5027, // Bloodhound
-	5030, // Sport
-	5031, // Driver
-	5032, // Hand wraps
-	5033, // Moto
-	5034, // Specialist
-	5035, // Hydra
+// PUMPS
+var PUMPS = []Tuple{
+	of("XM", 25),
+	of("MAG-7", 27),
+	of("SAWED-OFF", 29),
+	of("NOVA", 35),
+}
+
+// MISC
+var MISC = []Tuple{
+	of("Zeus", 31),
+}
+
+// GLOVES
+var GLOVES = []Tuple{
+	of("Broken Fang", 4725),
+	of("Bloodhound", 5027),
+	of("Sport", 5030),
+	of("Driver", 5031),
+	of("Hand wraps", 5032),
+	of("Moto", 5033),
+	of("Specialist", 5034),
+	of("Hydra", 5035),
+}
+
+func CreateIndices() []Tuple {
+	var types []Tuple
+	types = append(types, KNIFES...)
+	types = append(types, PISTOLS...)
+	types = append(types, RIFLES...)
+	types = append(types, MGs...)
+	types = append(types, SMGs...)
+	types = append(types, PUMPS...)
+	types = append(types, MISC...)
+	types = append(types, GLOVES...)
+	return types
 }
