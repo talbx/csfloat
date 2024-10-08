@@ -1,8 +1,8 @@
 package auction
 
 import (
-	"github.com/talbx/csfloat/types"
-	"github.com/talbx/csfloat/util"
+	"github.com/talbx/csfloat/pkg/types"
+	"github.com/talbx/csfloat/pkg/util"
 )
 
 type Auction struct{}

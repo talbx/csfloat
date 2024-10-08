@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/Rhymond/go-money"
 	"github.com/spf13/pflag"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 	"os"
 	"strings"
 )
@@ -44,12 +44,6 @@ func ParseFlags(flagset *pflag.FlagSet) (*types.SearchConfig, error) {
 		return nil, err
 	}
 	config.MinDiscountPercentage = discount
-
-	defIndex, err := flagset.GetStringSlice("defIndex")
-	if err != nil {
-		return nil, err
-	}
-	config.DefIndex = defIndex
 
 	mini, err := flagset.GetInt("min")
 	if err != nil {

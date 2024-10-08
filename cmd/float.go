@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/talbx/csfloat/listing"
+	"github.com/talbx/csfloat/pkg"
+	"github.com/talbx/csfloat/pkg/listing"
 	"log"
-	"strings"
 )
 
 var rootCmd = &cobra.Command{
@@ -22,6 +21,9 @@ var findCmd = &cobra.Command{
 }
 
 func init() {
+	subCmds := generateSubCommands()
+	findCmd.AddCommand(subCmds...)
+	rootCmd.AddCommand(findCmd)
 	rootCmd.PersistentFlags().Bool("cron", false, "Enable cron mode")
 	rootCmd.PersistentFlags().BoolP("auctions", "a", false, "Also check auctions")
 	rootCmd.PersistentFlags().IntP("max", "m", 0, "Max price in cents")
@@ -32,33 +34,24 @@ func init() {
 	rootCmd.PersistentFlags().IntP("top", "t", 10, "Top List")
 	rootCmd.PersistentFlags().StringP("keyfile", "f", "", "The location of your API key file")
 	rootCmd.PersistentFlags().StringP("keyword", "k", "", "The keyword. e.g a Skin Name like 'Asiimov' or 'Dragon Lore'")
-	rootCmd.PersistentFlags().StringSlice("defIndex", nil, "The keyword. e.g a Skin Name like 'Asiimov' or 'Dragon Lore'")
-	var subCmds []*cobra.Command
-	for _, tuple := range listing.CreateIndices() {
-		command := &cobra.Command{
-			Use:   strings.ToLower(tuple.Name),
-			Short: fmt.Sprintf("Look for %s", tuple.Name),
-			Run: func(cmd *cobra.Command, args []string) {
-				fmt.Println(cmd)
-				flags, err := ParseFlags(cmd.PersistentFlags())
-				if err != nil {
-					log.Default().Fatal(err)
-				}
 
-				if flags.Cron {
-					c := make(chan string)
-					RunCronSchedule(flags, c)
-					<-c
-				}
+	// doesnt make sense to filter defIndex when you e.g use float find pistols
+	rootCmd.Flags().StringSlice("defIndex", nil, "The keyword. e.g a Skin Name like 'Asiimov' or 'Dragon Lore'")
+}
 
-				flags.DefIndex = []string{string(rune(tuple.Index))}
-				FindSkins(flags)
-			},
-		}
-		subCmds = append(subCmds, command)
+func generateSubCommands() []*cobra.Command {
+	knives := GenerateFindCommand("knife", listing.KNIFES)
+	smgs := GenerateFindCommand("smg", listing.SMGs)
+	rifles := GenerateFindCommand("rifle", listing.RIFLES)
+	gloves := GenerateFindCommand("gloves", listing.GLOVES)
+	pistol := GenerateFindCommand("pistol", listing.PISTOLS)
+	heavy := GenerateFindCommand("heavy", listing.MGs)
+	pumps := GenerateFindCommand("pumps", listing.PUMPS)
+	misc := GenerateFindCommand("misc", listing.MISC)
+
+	return []*cobra.Command{
+		knives, smgs, rifles, gloves, pistol, heavy, pumps, misc,
 	}
-	findCmd.AddCommand(subCmds...)
-	rootCmd.AddCommand(findCmd)
 }
 
 func main() {
@@ -69,16 +62,22 @@ func main() {
 }
 
 func run(cmd *cobra.Command, _ []string) {
-	fmt.Println(cmd)
-	flags, err := ParseFlags(cmd.PersistentFlags())
+	flags, err := pkg.ParseFlags(cmd.PersistentFlags())
+
+	if err != nil {
+		log.Default().Fatal(err)
+	}
+	defIndex, err := cmd.Flags().GetStringSlice("defIndex")
 	if err != nil {
 		log.Default().Fatal(err)
 	}
 
+	flags.DefIndex = defIndex
+
 	if flags.Cron {
 		c := make(chan string)
-		RunCronSchedule(flags, c)
+		pkg.RunCronSchedule(flags, c)
 		<-c
 	}
-	FindSkins(flags)
+	pkg.FindSkins(flags)
 }

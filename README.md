@@ -1,6 +1,15 @@
 # CSFloat CLI
 
-A cron-based CSFloat deal finder CLI.
+Find the hottest deals on [CSFloat](https://csfloat.com/search) via the CLI!
+
+## Features
+
+- 🔥 Find the hottest deals on [CSFloat](https://csfloat.com/search). Always sorted by discount!
+- ⏱️ [CRON](https://en.wikipedia.org/wiki/Cron)-capable - Automatically re-run your search queries
+- 📋 Many filter possibilities and search configuration options
+- 🔗 Direct links to search results
+
+Note that it is not possible to initiate sales or purchases via the tool.
 
 ## Usage
 Create a developer key in your [CSFloat profile](https://csfloat.com/profile) by navigating to the `Developers`

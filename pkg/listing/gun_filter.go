@@ -2,7 +2,7 @@ package listing
 
 import (
 	"fmt"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 	"strings"
 )
 

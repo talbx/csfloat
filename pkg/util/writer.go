@@ -2,7 +2,7 @@ package util
 
 import (
 	"github.com/jedib0t/go-pretty/v6/table"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 	"os"
 )
 

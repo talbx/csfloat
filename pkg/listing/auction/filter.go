@@ -2,8 +2,8 @@ package auction
 
 import (
 	"fmt"
-	"github.com/talbx/csfloat/listing"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/listing"
+	"github.com/talbx/csfloat/pkg/types"
 	"log"
 	"math"
 	"time"

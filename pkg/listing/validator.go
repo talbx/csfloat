@@ -3,7 +3,7 @@ package listing
 import (
 	"fmt"
 	"github.com/Rhymond/go-money"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 )
 
 func ProcessValidOffers(o []types.FilteredItem, config types.SearchConfig) []types.OutputItem {

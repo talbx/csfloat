@@ -1,8 +1,8 @@
 package instant
 
 import (
-	"github.com/talbx/csfloat/listing"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/listing"
+	"github.com/talbx/csfloat/pkg/types"
 )
 
 type BuyNowFilter struct{}

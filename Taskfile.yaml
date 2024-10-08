@@ -1,5 +1,14 @@
 version: 3
 tasks:
-  build: go build -o float
-  test: go test ./...
-  lint: golangci-lint run
+  run-simple:
+    cmd: go run cmd/float.go
+    desc: "Run CSFloat CLI without in the default mode"
+  build:
+    cmd: go build -o float cmd/*
+    desc: "build & create the CSFloat binary"
+  test:
+    cmd: go test ./...
+    desc: "Execute go test"
+  lint:
+    cmd: golangci-lint run
+    desc: "Lint the source code via golangci-lint"

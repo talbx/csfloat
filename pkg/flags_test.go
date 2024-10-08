@@ -1,8 +1,8 @@
-package main
+package pkg
 
 import (
 	"github.com/spf13/pflag"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 	"os"
 	"reflect"
 	"testing"

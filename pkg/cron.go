@@ -1,8 +1,8 @@
-package main
+package pkg
 
 import (
 	"github.com/go-co-op/gocron/v2"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 	"log"
 	"time"
 )

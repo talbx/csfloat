@@ -3,7 +3,7 @@ package util
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 	"io"
 	"net/http"
 	"os"
@@ -29,7 +29,7 @@ func GetListings[R types.BuyNowItem | types.AuctionItem](filter types.SearchConf
 		f = append(f, fmt.Sprintf("&market_hash_name=%v", filter.Gun))
 	}
 
-	if filter.DefIndex != nil {
+	if filter.DefIndex != nil && len(filter.DefIndex) > 0 {
 		f = append(f, fmt.Sprintf("&def_index=%v", strings.Join(filter.DefIndex, ",")))
 	}
 

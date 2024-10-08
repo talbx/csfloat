@@ -1,11 +1,11 @@
-package main
+package pkg
 
 import (
-	"github.com/talbx/csfloat/listing"
-	auction "github.com/talbx/csfloat/listing/auction"
-	"github.com/talbx/csfloat/listing/instant"
-	"github.com/talbx/csfloat/types"
-	"github.com/talbx/csfloat/util"
+	"github.com/talbx/csfloat/pkg/listing"
+	auction2 "github.com/talbx/csfloat/pkg/listing/auction"
+	instant2 "github.com/talbx/csfloat/pkg/listing/instant"
+	"github.com/talbx/csfloat/pkg/types"
+	"github.com/talbx/csfloat/pkg/util"
 	"log"
 )
 
@@ -28,8 +28,8 @@ func FindSkins(searchConfig *types.SearchConfig) {
 }
 
 func findInstantBuys(config types.SearchConfig) []types.OutputItem {
-	instantLister := instant.Instant{}
-	buyNowFilter := instant.BuyNowFilter{}
+	instantLister := instant2.Instant{}
+	buyNowFilter := instant2.BuyNowFilter{}
 	instantListings, err := instantLister.GetListings(config)
 	if err != nil {
 		log.Default().Fatal(err)
@@ -39,8 +39,8 @@ func findInstantBuys(config types.SearchConfig) []types.OutputItem {
 }
 
 func findAuctions(searchConfig types.SearchConfig) []types.OutputItem {
-	auctionLister := auction.Auction{}
-	auctionFilter := auction.AuctionFilter{}
+	auctionLister := auction2.Auction{}
+	auctionFilter := auction2.AuctionFilter{}
 	auctionListings, err := auctionLister.GetListings(searchConfig)
 	if err != nil {
 		log.Default().Fatal(err)

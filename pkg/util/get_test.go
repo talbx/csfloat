@@ -2,7 +2,7 @@ package util
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/talbx/csfloat/types"
+	"github.com/talbx/csfloat/pkg/types"
 	"testing"
 )
 
