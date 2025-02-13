@@ -7,7 +7,7 @@ require (
 	github.com/go-co-op/gocron/v2 v2.15.0
 	github.com/jedib0t/go-pretty/v6 v6.6.6
 	github.com/spf13/cobra v1.8.1
-	github.com/spf13/pflag v1.0.5
+	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
 )
 
