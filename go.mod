@@ -3,7 +3,7 @@ module github.com/talbx/csfloat
 go 1.22.1
 
 require (
-	github.com/Rhymond/go-money v1.0.14
+	github.com/Rhymond/go-money v1.0.15
 	github.com/go-co-op/gocron/v2 v2.15.0
 	github.com/jedib0t/go-pretty/v6 v6.6.6
 	github.com/spf13/cobra v1.8.1
